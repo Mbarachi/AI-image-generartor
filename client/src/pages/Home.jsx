@@ -6,11 +6,11 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [allPosts, setAllPosts] = useState(null);
 
-  const [searchText, setSearchText] = useState("abg");
+  const [searchText, setSearchText] = useState("");
 
   const RenderCards = ({ data, title }) => {
     if (data?.length > 0) {
-      return data.map((post) => <Card key={post.id} {...post} />);
+      return data.map((post) => <Card key={post._id} {...post} />);
     }
 
     return (
@@ -54,7 +54,7 @@ const Home = () => {
                   title="No search results found"
                 />
               ) : (
-                <RenderCards data={[]} title=""/>
+                <RenderCards data={[]} title="No posts found"/>
               )}
             </div>
           </>
