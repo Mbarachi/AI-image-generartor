@@ -20,11 +20,18 @@ const CreatePost = () => {
 
   const generateImage = () => {};
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
 
-  const handleChange = (e) => {};
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-  const handleSurpriseMe = (e) => {};
+  const handleSurpriseMe = () => {
+    const randomPrompt = getRandomPrompts(form.prompt);
+    setForm({ ...form, prompt: randomPrompt });
+  };
 
   return (
     <section className="max-w-7xl mx-auto">
@@ -44,8 +51,6 @@ const CreatePost = () => {
             placeholder="John Doe"
             value={form.name}
             handleChange={handleChange}
-            isSurpriseMe={undefined}
-            handleSurpriseMe={undefined}
           />
           <FormField
             labelName="Prompt"
