@@ -18,7 +18,30 @@ const CreatePost = () => {
   const [generatingImg, setGeneratingImg] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const generateImage = () => {};
+  const generateImage = async () => {
+    if (form.prompt) {
+      try {
+        setGeneratingImg(true);
+        const response = await fetch("http://localhost:8080/api/v1/dalle", {
+          method: "POST",
+          headers: {
+            "content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt: form.prompt }),
+        });
+
+        const data = await response.json();
+
+        setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
+      } catch (error) {
+        alert(error);
+      } finally {
+        setGeneratingImg(false);
+      }
+    }else{
+      alert('Please enter a prompt')
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,6 +49,7 @@ const CreatePost = () => {
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    console.log(form);
   };
 
   const handleSurpriseMe = () => {
@@ -43,7 +67,7 @@ const CreatePost = () => {
         </p>
       </div>
       <form className="mt-16 max-w-3xl" onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-5 mb-5">
           <FormField
             labelName="your name"
             type="text"
