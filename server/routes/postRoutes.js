@@ -25,7 +25,7 @@ router.route("/").get(async (req, res) => {
       photo: photoUrl.url,
     });
 
-    res.status(200).json({ success: true, data: newPost });
+    res.status(201).json({ success: true, data: newPost });
   } catch (error) {
     res.status(500).json({ success: false, message: error });
   }
@@ -35,10 +35,9 @@ router.route("/").get(async (req, res) => {
 router.route("/").post(async (req, res) => {
   try {
     const posts = await Post.find({});
-
     res.status(200).json({ success: true, data: posts });
   } catch (error) {
-    res.status(500).json({ success: false, message: error });
+    res.status(500).json({ success: false, message: 'Fetching posts failed, please try again' });
   }
 });
 

@@ -25,12 +25,13 @@ const CreatePost = () => {
         const response = await fetch("http://localhost:8080/api/v1/dalle", {
           method: "POST",
           headers: {
-            "content-Type": "application/json",
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ prompt: form.prompt }),
         });
 
         const data = await response.json();
+        console.log(data)
 
         setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` });
       } catch (error) {
@@ -45,6 +46,7 @@ const CreatePost = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(form)
 
     if (form.prompt && form.photo) {
       setLoading(true);
@@ -53,7 +55,7 @@ const CreatePost = () => {
         const response = await fetch(`http://localhost:8080/api/v1/post`, {
           method: "POST",
           headers: {
-            "content-Type": "application/json ",
+            "Content-Type": "application/json ",
           },
           body: JSON.stringify(form),
         });
@@ -95,10 +97,9 @@ const CreatePost = () => {
             labelName="your name"
             type="text"
             name="name"
-            placeholder="John Doe"
+            placeholder="Victor Mbarachi"
             value={form.name}
-            handleChange={handleChange}
-          />
+            handleChange={handleChange} isSurpriseMe={undefined} handleSurpriseMe={undefined}          />
           <FormField
             labelName="Prompt"
             type="text"
